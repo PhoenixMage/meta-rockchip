@@ -1,0 +1,68 @@
+diff --color -Naur u-boot-radxa.orig/arch/arm/mach-rockchip/decode_bl31.py u-boot-radxa/arch/arm/mach-rockchip/decode_bl31.py
+--- u-boot-radxa.orig/arch/arm/mach-rockchip/decode_bl31.py	2022-11-02 13:46:40.767642233 +1100
++++ u-boot-radxa/arch/arm/mach-rockchip/decode_bl31.py	2022-11-08 23:13:37.943210893 +1100
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python2
++#!/usr/bin/env python3
+ #
+ # Copyright (C) 2020 Rockchip Electronics Co., Ltd
+ #
+diff --color -Naur u-boot-radxa.orig/arch/arm/mach-rockchip/make_fit_args.sh u-boot-radxa/arch/arm/mach-rockchip/make_fit_args.sh
+--- u-boot-radxa.orig/arch/arm/mach-rockchip/make_fit_args.sh	2022-11-02 13:46:40.767642233 +1100
++++ u-boot-radxa/arch/arm/mach-rockchip/make_fit_args.sh	2022-11-08 23:05:10.623652346 +1100
+@@ -5,7 +5,7 @@
+ # SPDX-License-Identifier: GPL-2.0
+ #
+ 
+-srctree=$PWD
++buildtree=$PWD
+ 
+ function help()
+ {
+@@ -61,8 +61,8 @@
+ fi
+ 
+ # Base
+-DARM_BASE=`sed -n "/CONFIG_SYS_SDRAM_BASE=/s/CONFIG_SYS_SDRAM_BASE=//p" ${srctree}/include/autoconf.mk|tr -d '\r'`
+-UBOOT_LOAD_ADDR=`sed -n "/CONFIG_SYS_TEXT_BASE=/s/CONFIG_SYS_TEXT_BASE=//p" ${srctree}/include/autoconf.mk|tr -d '\r'`
++DARM_BASE=`sed -n "/CONFIG_SYS_SDRAM_BASE=/s/CONFIG_SYS_SDRAM_BASE=//p" ${buildtree}/include/autoconf.mk|tr -d '\r'`
++UBOOT_LOAD_ADDR=`sed -n "/CONFIG_SYS_TEXT_BASE=/s/CONFIG_SYS_TEXT_BASE=//p" ${buildtree}/include/autoconf.mk|tr -d '\r'`
+ if grep -q '^CONFIG_ARM64=y' .config ; then
+ 	ARCH="arm64"
+ else
+diff --color -Naur u-boot-radxa.orig/arch/arm/mach-rockchip/make_fit_atf.sh u-boot-radxa/arch/arm/mach-rockchip/make_fit_atf.sh
+--- u-boot-radxa.orig/arch/arm/mach-rockchip/make_fit_atf.sh	2022-11-02 13:46:40.767642233 +1100
++++ u-boot-radxa/arch/arm/mach-rockchip/make_fit_atf.sh	2022-11-08 23:11:38.219215728 +1100
+@@ -6,9 +6,9 @@
+ #
+ 
+ # Process args and auto set variables
+-source ./${srctree}/arch/arm/mach-rockchip/make_fit_args.sh
++source ${srctree}/arch/arm/mach-rockchip/make_fit_args.sh
+ 
+-rm -f ${srctree}/*.digest ${srctree}/*.bin.gz ${srctree}/bl31_0x*.bin
++rm -f ${buildtree}/*.digest ${buildtree}/*.bin.gz ${buildtree}/bl31_0x*.bin
+ ${srctree}/arch/arm/mach-rockchip/decode_bl31.py
+ 
+ if [ "${COMPRESSION}" == "gzip" ]; then
+@@ -43,9 +43,9 @@
+ 		openssl dgst -sha256 -binary -out u-boot-nodtb.bin.digest u-boot-nodtb.bin
+ 		UBOOT_SZ=`ls -l u-boot-nodtb.bin | awk '{ print $5 }'`
+ 		if [ ${UBOOT_SZ} -gt 0 ]; then
+-			gzip -k -f -9 ${srctree}/u-boot-nodtb.bin
++			gzip -k -f -9 ${buildtree}/u-boot-nodtb.bin
+ 		else
+-			touch ${srctree}/u-boot-nodtb.bin.gz
++			touch ${buildtree}/u-boot-nodtb.bin.gz
+ 		fi
+ 	fi
+ 	echo "		};"
+@@ -58,7 +58,7 @@
+ 		return;
+ 	fi
+ 
+-	if [ -f ${srctree}/${KERN_DTB} ]; then
++	if [ -f ${buildtree}/${KERN_DTB} ]; then
+ 	PROP_KERN_DTB=', "kern-fdt"';
+ 	echo "		kern-fdt {
+ 			description = \"${KERN_DTB}\";
