@@ -10,7 +10,7 @@ require conf/machine/include/arm/armv8-2a/tune-cortexa55.inc
 require conf/machine/include/rockchip-defaults.inc
 require conf/machine/include/rockchip-wic.inc
 
-KBUILD_DEFCONFIG ?= "defconfig"
+#KBUILD_DEFCONFIG ?= "defconfig"
 KERNEL_CLASSES = "kernel-fitimage"
 KERNEL_IMAGETYPE = "fitImage"
 
