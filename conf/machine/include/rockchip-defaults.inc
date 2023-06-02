@@ -1,7 +1,7 @@
 # meta-rockchip default settings
 
 # kernel
-PREFERRED_PROVIDER_virtual/kernel ?= "linux-yocto"
+PREFERRED_PROVIDER_virtual/kernel ??= "linux-yocto"
 KCONFIG_MODE ?= "alldefconfig"
 
 # xserver
