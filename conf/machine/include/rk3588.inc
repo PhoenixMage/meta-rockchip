@@ -17,9 +17,9 @@ KERNEL_IMAGETYPE = "fitImage"
 UBOOT_SUFFIX ?= "itb"
 UBOOT_ENTRYPOINT ?= "0x06000000"
 
-PREFERRED_PROVIDER_u-boot = "u-boot-collabora"
-PREFERRED_PROVIDER_virtual/bootloader = "u-boot-collabora"
-PREFERRED_VERSION_u-boot-collabora = "2023.07-rc3"
+PREFERRED_PROVIDER_u-boot ?= "u-boot-collabora"
+PREFERRED_PROVIDER_virtual/bootloader ?= "u-boot-collabora"
+PREFERRED_VERSION_u-boot-collabora ?= "2023.07-rc3"
 
-PREFERRED_PROVIDER_virtual/kernel = "linux-collabora"
+PREFERRED_PROVIDER_virtual/kernel ?= "linux-collabora"
 PREFERRED_VERSION_linux-collabora ?= "6.4-rc1%"
