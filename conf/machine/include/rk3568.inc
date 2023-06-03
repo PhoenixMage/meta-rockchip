@@ -1,8 +1,6 @@
 # Copyright (C) 2020 Garmin Ltd. or its subsidaries
 # Released under the MIT license (see COPYING.MIT for the terms)
 
-require conf/machine/include/rk356X.inc
-
 SOC_FAMILY = "rk3568"
 
 DEFAULTTUNE ?= "cortexa55"
@@ -22,7 +20,7 @@ UBOOT_ENTRYPOINT ?= "0x06000000"
 
 PREFERRED_PROVIDER_u-boot ?= "u-boot"
 PREFERRED_PROVIDER_virtual/bootloader ?= "u-boot"
-PREFERRED_VERSION_u-boot-collabora ?= "2023.07-rc3"
+PREFERRED_VERSION_u-boot ?= "2023.07-rc3"
 
 PREFERRED_PROVIDER_virtual/kernel ?= "linux-mainline"
 PREFERRED_VERSION_linux-collabora ?= "6.4-rc1%"
